@@ -14,5 +14,10 @@ CHIP Or {
     OUT out;
 
     PARTS:
-    // Put your code here:
+    Nand(a = a, b = a, out = A);
+    Nand(a = b, b = b, out = B);
+    And(a = A, b= B, out = outAnd);
+    Not(in = outAnd, out = out);
+
+    //simplified version - 3 NAND gates 
 }
