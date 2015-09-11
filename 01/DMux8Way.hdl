@@ -16,5 +16,9 @@ CHIP DMux8Way {
     OUT a, b, c, d, e, f, g, h;
 
     PARTS:
-    // Put your code here:
+    //one to two 4 way DMUX... Make sure to check significant bit
+    DMux(in = in, sel = sel[2], a = OutA, b = OutB);
+    DMux4Way(in = OutA, a = a, b = b, c = c, d = d, sel[0] = sel[0], sel[1] = sel[1]);
+    DMux4Way(in = OutB, a = e, b = f, c = g, d = h, sel[0] = sel[0], sel[1] = sel[1]);
+
 }
