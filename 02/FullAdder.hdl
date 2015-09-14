@@ -13,5 +13,44 @@ CHIP FullAdder {
         carry;   // Left bit of a + b + c
 
     PARTS:
-    // Put you code here:
+    //2 half adders produce the same result
+
+    //SUM IMPLEMENTATION 
+    //inversion of inputs
+    Not(in = a, out = Aprime);
+    Not(in = b, out = Bprime);
+    Not(in = c, out = Cprime);
+
+    //A'BC'
+    And(a = Aprime, b = b, out = AprimeB);
+    And(a = AprimeB, b = Cprime, out = AprimeBCprime);
+
+    //AB'C'
+    And(a = a, b = Bprime, out = ABprime);
+    And(a = ABprime, b = Cprime, out = ABprimeCprime);
+
+    //A'B'C
+    And(a = Aprime, b = Bprime, out = AprimeBprime);
+    And(a = AprimeBprime, b = c, out = AprimeBprimeC);
+
+    //ABC
+    And(a = a, b = b, out = AB);
+    And(a = AB, b = c, out = ABC);
+
+    //Sum implementation 
+    Or(a = AprimeBCprime, b = ABprimeCprime, out = part1);
+    Or(a = AprimeBprimeC, b = ABC, out = part2);
+
+    Or(a = part1, b = part2, out = sum);
+
+    //CARRY IMPLEMENTATION 
+    And(a = a, b = b, out = ab);
+    And(a = b, b = c, out = bc);
+    And(a = a, b = c, out = ac);
+
+    Or(a = ab, b = bc, out = abbc);
+    Or(a = abbc, b = ac, out = carry);
+
+
+
 }
