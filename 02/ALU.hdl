@@ -42,5 +42,53 @@ CHIP ALU {
         ng; // 1 if (out < 0),  0 otherwise
 
     PARTS:
-   // Put you code here:
+    //make all bits in x zero zx
+    Mux16(a = x, b = false, sel = zx, out = zeroX);
+
+    //complement x nx
+    Not16(in = zeroX, out = xPrime);
+    Mux16(a = zeroX, b = xPrime, sel = nx, out = cAorBx);
+
+    //-------------
+
+    //y zero zy
+    Mux16(a = y, b = false, sel = zy, out = zeroY);
+
+    //complement y ny
+    Not16(in = zeroY, out = yPrime);
+    Mux16(a = zeroY, b = yPrime, sel = ny, out = cAorBy);
+
+    //-------------
+
+    //Multiply or Add operations
+    And16(a = cAorBx, b = cAorBy, out = andXY);
+    Add16(a = cAorBx, b = cAorBy, out = orXY);
+
+    //choose which operation 
+    Mux16(a = andXY, b = orXY, sel = f, out = operation);
+
+    //-------------
+
+    //no implementation (negate output)
+    Not16(in = operation, out = operationPrime);      
+    Mux16(a = operation, b = operationPrime, sel = no, out = out, out[15] = ng, out[0..7] = zr1, out[8..15] = zr2);  
+
+    //output flags
+
+    //ZR, check all bits to see if anyone of those are 1
+    Or8Way(in = zr1, out = p1);
+    Or8Way(in = zr2, out = p2);
+    Or(a = p1, b = p2, out = zeroCheck);
+    Not(in = zeroCheck, out = zr);
+    //NG, check MSB if it is 1
+
+
+    
+
+
+
+
+
+
+    
 }
