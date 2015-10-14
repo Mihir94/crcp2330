@@ -22,6 +22,6 @@ CHIP PC {
     Mux16(a = incrementer, b = counter, sel = inc, out = control1);
     Mux16(a = control1, b = in, sel = load, out = control2);
     Mux16(a = control2, b = false, sel = reset, out = out1);
-    //register called based on who was addressed
+    //register called based on who was addressed, feedback
     Register(in = out1, load = true, out = out, out = incrementer);
 }
