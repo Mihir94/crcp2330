@@ -39,5 +39,35 @@ CHIP CPU {
         pc[15];          // address of next instruction
 
     PARTS:
-    // Put your code here:
+    Not(in=instruction[15], out=aInstruction);//A instruction MSB
+    Mux16(a=aInstruction, b=outM, sel=instruction[15], out=ARegisterIn);//output based on if
+                                                                        //A instruction or not
+    //Load to ARegister - A instruction or Cinstruction
+    Or(a=aInstruction, b=instruction[5], out=loadA); //d1
+    ARegister(in=ARegisterIn, load=loadA, out=outAtoPC, out=MuxBInput, out=addressM);
+    
+    //d2
+    And(a=instruction[15], b=instruction[4], out=loadD);
+    DRegister(in=outM, load=loadD, out=aluInputX);
+
+    //check if A or M - a=0 or a=1
+    Mux16(a=inM, b=MuxBInput, sel=instruction[12], out=aluInputY);
+
+    ALU(x=aluInputX, y=aluInputY, zx=instruction[11], nx=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6], out=outM, zr=zr, ng=ng);
+
+    //Jump Instructions 
+    Not(in=zr, out=notZR);
+    Not(in=ng, out=notNG);
+    And(a=inctruction[1], b=zr, out=jmp1);
+    And(a=notZR, b=notNG, out=gThanZero);
+    And(a=instruction[0], b=gThanZero, out=jmp2);
+    And(a=instruction[2], b=ng, out=jmp3);
+    Or(a=jmp1, b=jmp2, out=12);
+    Or(a=12, b=jmp3, out=123);
+    And(a=instruction[15], b=123, out=loadPC);
+
+
+    //writeM, compute instruction, d3
+    And(a=instruction[15], b=instruction[3], out=writeM);
+    PC(in=outAtoPC, load=loadPC, inc=true, reset=reset, out=pc);    
 }
