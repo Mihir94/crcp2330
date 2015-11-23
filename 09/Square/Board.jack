@@ -1,0 +1,44 @@
+class Board
+{
+	//location of lines
+	field int x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, x6, y6;
+
+	//constructor that constructs the board at given coordinates
+
+	constructor Board new(int Ax1, int Ay1, int Ax2,int Ay2, int Bx1, int By1, int Bx2, int By2, int Cx1, int Cy1, int Cx2, int Cy2)
+	{
+		let x1 = Ax1;
+		let y1 = Ay1; 
+		let x2 = Ax2;
+		let y2 = Ay2; 
+		let	x3 = Bx1;
+		let y3 = By1; 
+		let x4 = Bx2;
+		let y4 = By2;
+		let x5 = Cx1;
+		let y5 = Cy1; 
+		let x6 = Cx2; 
+		let y6 = Cy2; 
+
+		do draw(); 
+
+		return this;
+	}
+
+	//memory deallocation
+	method void dispose()
+	{
+		do Memory.deAlloc(this);
+		return;
+	}
+
+	method void draw()
+	{
+		do Screen.drawLine(x1, y1, x2, y2);
+		do Screen.drawLine(x3, y3, x4, y4);
+		do Screen.drawLine(x5, y5, x6, y6);
+
+		return; 
+	}
+
+}
