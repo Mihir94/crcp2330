@@ -1,0 +1,62 @@
+class Board
+{
+	//location of lines
+	field int x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, x6, y6, x7, y7, x8, y8, x9, y9, x10, y10;
+
+	//constructor that constructs the board at given coordinates
+
+	constructor Board new(int Ax1, int Ay1, int Ax2, int Ay2, int Bx1, int By1, int Bx2, int By2, int Cx1, int Cy1, int Cx2, int Cy2, int Dx1, int Dy1, int Dx2, int Dy2, int Ex1, int Ey1, int Ex2, int Ey2)
+	{
+		// left border
+		let x1 = Ax1;
+		let y1 = Ay1; 
+		let x2 = Ax2;
+		let y2 = Ay2;
+		// top border
+		let	x3 = Bx1;
+		let y3 = By1; 
+		let x4 = Bx2;
+		let y4 = By2;
+		// right border
+		let x5 = Cx1;
+		let y5 = Cy1; 
+		let x6 = Cx2; 
+		let y6 = Cy2; 
+		// extrude line 1
+		let x7 = Dx1; 
+		let y7 = Dy1; 
+		let x8 = Dx2; 
+		let y8 = Dy2; 
+		// extruder line 2
+		let x9 = Ex1; 
+		let y9 = Ey1; 
+		let x10 = Ex2; 
+		let y10 = Ey2; 
+
+		do draw(); 
+
+		return this;
+	}
+
+	//memory deallocation
+	method void dispose()
+	{
+		do Memory.deAlloc(this);
+		return;
+	}
+
+	method void draw()
+	{
+		do Screen.drawLine(x1, y1, x2, y2);
+		do Screen.drawLine(x3, y3, x4, y4);
+		do Screen.drawLine(x5, y5, x6, y6);
+		do Screen.drawLine(x7, y7, x8, y8);
+
+		do Screen.setColor(true);
+		do Screen.drawRectangle(x9, y9, x10, y10);
+
+	
+		return; 
+	}
+
+}
