@@ -1,5 +1,4 @@
-puts "What day of the week is it?"
+asm_filename = ARGV[0]
 
-day = gets.chomp
+puts asm_filename
 
-puts "Great, it's #{day}! Welcome to Ruby"
