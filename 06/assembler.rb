@@ -1,16 +1,15 @@
+require_relative 'parser'
+
 class Assembler
 
 	def initialize(asm_file, hack_file)
 		@asm_file = asm_file
 		@hack_file = hack_file
-		@asm_instructions = instructions_from_file
-		p @asm_instructions
-		@parser = Parser.new(@asm_instructions)
+		@parser = Parser.new(instructions_from_file)
 	end
 
 	def assemble!
-		#hack_instructions = @Parser.parse_asm
-		#@hack_file << hack_instructions
+		@parser.parse.each { |instruction| @hack_file << instruction << "\n" }
 	end
 
 	def instructions_from_file
@@ -19,7 +18,6 @@ class Assembler
 		lines.delete("")
 		return lines
 	end
-
 end
 
 def args_valid?
