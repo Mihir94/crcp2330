@@ -12,7 +12,7 @@ class Code
 	}
 	
 	def dest(mnemonic)
-		Dest[mnemonic]
+		DEST[mnemonic]
 	end
 
 	def comp(mnemonic)
