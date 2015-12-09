@@ -30,7 +30,6 @@ class Parser
 
 	def assemble_c_command(instruction)
 		command = "111"
-		binary_instruction = '000'
 		parse_instruction = instruction.partition("=")
 
 		if parse_instruction[1] == "="
