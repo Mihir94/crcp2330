@@ -1,8 +1,11 @@
+require_relative 'code'
+
 class Parser
 
 	def initialize(assembly_instructions)
 		@assembly_instructions = assembly_instructions
 		@machine_instructions = []
+		@code = Code.new()
 	end
 
 	def parse
@@ -26,7 +29,22 @@ class Parser
 	end
 
 	def assemble_c_command(instruction)
-		"1110000000000000"
+		command = "111"
+		binary_instruction = '000'
+		parse_instruction = instruction.partition("=")
+
+		if parse_instruction[1] == "="
+			dest_mnemonic = parse_instruction[0]
+			comp_mnemonic = parse_instruction[2]
+			binary_instruction = @code.process_instruction_1(dest_mnemonic, comp_mnemonic)
+		elsif 
+			parse_instruction = instruction.partition(";")
+			comp_mnemonic = parse_instruction[0]
+			jump_mnemonic = parse_instruction[2]
+			binary_instruction = @code.process_instruction_2(comp_mnemonic, jump_mnemonic)
+		end
+
+		command + binary_instruction
 	end
 
 	def command_type(instruction)
