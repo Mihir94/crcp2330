@@ -9,6 +9,7 @@ class Parser
 	end
 
 	def parse
+		
 		@assembly_instructions.each do |instruction|
 			if command_type(instruction) == :a_command
 				@machine_instructions << assemble_a_command(instruction)
@@ -53,5 +54,4 @@ class Parser
 			:c_command
 		end
 	end
-
 end
