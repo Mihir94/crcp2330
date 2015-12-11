@@ -77,7 +77,7 @@ class Code
 
 	def jump(mnemonic)
 		bJump = JUMP[mnemonic]
-		bJump
+		return bJump
 	end
 
 

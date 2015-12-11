@@ -44,7 +44,7 @@ class Parser
 			binary_instruction = @code.process_instruction_2(comp_mnemonic, jump_mnemonic)
 		end
 
-		command + binary_instruction
+		command + binary_instruction;
 	end
 
 	def command_type(instruction)
