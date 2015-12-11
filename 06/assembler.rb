@@ -36,7 +36,8 @@ end
 
 
 unless args_valid?
-	abort("Usage: ./assembler.rb Prog.asm");
+	abort("Usage: ./assembler.rb Prog.asm")
+
 end
 
 asm_filename = ARGV[0]
